@@ -1,26 +1,11 @@
 const initialState = {
-    books: [
-        {
-            _id: 1,
-            title: 'Robinzon Cruzo',
-            description: 'This is the description of 2 book',
-            price: 35,
-            quantity: 1
-        },
-        {
-            _id: 2,
-            title: 'mongoDB in 24h',
-            description: 'This is the description of 1 book',
-            price: 25,
-            quantity: 1
-        }
-    ]
+    books: []
 };
 
 export default function booksReducers(state = initialState, action) {
     switch (action.type) {
         case 'GET_BOOK':
-            return state;
+            return { books: action.payload };
             break;
 
         case 'POST_BOOK':

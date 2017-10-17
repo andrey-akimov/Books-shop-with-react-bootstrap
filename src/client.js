@@ -6,6 +6,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import reducers from './reducers';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import { addToCart } from './actions/cartActions';
 import { postBooks, deleteBooks, updateBooks } from './actions/booksActions';
 import BooksList from './components/pages/BooksList';
@@ -14,7 +15,7 @@ import BooksForm from './components/pages/BooksForm';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 
-const middleware = applyMiddleware(logger);
+const middleware = applyMiddleware(thunk, logger);
 const store = createStore(reducers, middleware);
 
 render(
