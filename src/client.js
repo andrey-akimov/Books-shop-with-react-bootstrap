@@ -34,27 +34,3 @@ render(
     </Provider>,
     document.getElementById('root')
 );
-
-// store.dispatch(
-//     postBooks({
-//         _id: 2,
-//         title: 'Robinzon Cruzo',
-//         price: 35,
-//         description: 'This is the description of 1 book'
-//     })
-// );
-
-// store.dispatch(
-//     deleteBooks({
-//         _id: 1
-//     })
-// );
-
-// store.dispatch(
-//     updateBooks({
-//         _id: 2,
-//         title: 'Zzzzzzzzz'
-//     })
-// );
-
-// store.dispatch(addToCart([{ _id: 1 }]));

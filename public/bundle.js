@@ -11817,7 +11817,7 @@ var Cart = function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            return _react2.default.createElement(
+            return this.props.cart.cart.length === 0 ? _react2.default.createElement('div', null) : _react2.default.createElement(
                 _reactBootstrap.Panel,
                 { header: 'Cart', bsStyle: 'primary' },
                 this.props.cart.cart.map(function (el) {
@@ -12073,30 +12073,6 @@ var store = (0, _redux.createStore)(_reducers2.default, middleware);
         )
     )
 ), document.getElementById('root'));
-
-// store.dispatch(
-//     postBooks({
-//         _id: 2,
-//         title: 'Robinzon Cruzo',
-//         price: 35,
-//         description: 'This is the description of 1 book'
-//     })
-// );
-
-// store.dispatch(
-//     deleteBooks({
-//         _id: 1
-//     })
-// );
-
-// store.dispatch(
-//     updateBooks({
-//         _id: 2,
-//         title: 'Zzzzzzzzz'
-//     })
-// );
-
-// store.dispatch(addToCart([{ _id: 1 }]));
 
 /***/ }),
 /* 177 */
@@ -49107,7 +49083,7 @@ var Menu = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 _reactBootstrap.Navbar,
-                { inverse: true, fixedTop: true },
+                { inverse: true },
                 _react2.default.createElement(
                     _reactBootstrap.Navbar.Header,
                     null,

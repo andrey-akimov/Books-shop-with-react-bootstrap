@@ -35,7 +35,9 @@ class Cart extends Component {
         this.setState({ showModal: false });
     }
     render() {
-        return (
+        return this.props.cart.cart.length === 0 ? (
+            <div />
+        ) : (
             <Panel header="Cart" bsStyle="primary">
                 {this.props.cart.cart.map(el => (
                     <Panel key={el._id}>

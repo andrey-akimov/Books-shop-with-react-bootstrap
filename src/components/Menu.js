@@ -6,7 +6,7 @@ import { getCart } from '../actions/cartActions';
 class Menu extends Component {
     render() {
         return (
-            <Navbar inverse fixedTop>
+            <Navbar inverse>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <a href="/">React-Bootstrap</a>
