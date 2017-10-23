@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -11,8 +13,8 @@ var users = require('./routes/users');
 var app = express();
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -27,6 +29,40 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/bookshop', { useMongoClient: true });
 
 const Books = require('./models/books');
+const db = mongoose.connection;
+
+// SESSION
+app.use(
+    session({
+        secret: 'mySecretString',
+        saveUninitialized: false,
+        resave: false,
+        cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },
+        store: new MongoStore({
+            mongooseConnection: db,
+            ttl: 2 * 24 * 60 * 60
+        })
+    })
+);
+
+// SAVE SESSION CART
+app.post('/cart', (res, req) => {
+    let cart = req.req.body;
+    req.req.session.cart = cart;
+    req.req.session.save(err => {
+        if (err) {
+            throw err;
+        }
+        res.res.json(req.req.session.cart);
+    });
+});
+
+// GET SESSION CART
+app.get('/cart', (res, req) => {
+    if (typeof req.req.session.cart !== 'undefined') {
+        res.res.json(req.req.session.cart);
+    }
+});
 
 // POST BOOKS
 app.post('/books', (req, res) => {

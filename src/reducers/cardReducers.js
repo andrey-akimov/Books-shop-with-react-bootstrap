@@ -8,16 +8,15 @@ const initialState = {
 
 export default function cartReducers(state = initialState, action) {
     switch (action.type) {
-        case 'ADD_TO_CART':
-            var cart = [...state.cart, action.payload];
+        case 'GET_CART':
             return {
-                cart,
-                total: calc(cart)
+                cart: action.payload,
+                total: calc(action.payload)
             };
             break;
 
-        case 'DELETE_CART_ITEM':
-            var cart = state.cart.filter(el => el._id !== action.payload);
+        case 'ADD_TO_CART':
+            var cart = action.payload;
             return {
                 cart,
                 total: calc(cart)
@@ -26,13 +25,15 @@ export default function cartReducers(state = initialState, action) {
 
         case 'UPDATE_CART':
             return {
-                cart: state.cart.map(el => {
-                    if (el._id === action._id) {
-                        el.quantity += action.unit;
-                    }
-                    return el;
-                }),
+                cart: action.newCart,
                 total: calc(state.cart)
+            };
+            break;
+
+        case 'DELETE_CART_ITEM':
+            return {
+                cart: action.payload,
+                total: calc(action.payload)
             };
             break;
 

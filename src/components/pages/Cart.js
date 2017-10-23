@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal, Well, Panel, Col, Row, Button, ButtonGroup, Label } from 'react-bootstrap';
 
-import { deleteCartItem, updateCart } from '../../actions/cartActions';
+import { deleteCartItem, updateCart, getCart } from '../../actions/cartActions';
 
 class Cart extends Component {
     constructor() {
@@ -17,15 +17,19 @@ class Cart extends Component {
             showModal: false
         };
     }
+    componentDidMount() {
+        this.props.getCart();
+    }
     onDelete(_id) {
-        this.props.deleteCartItem(_id);
+        var newCart = this.props.cart.cart.filter(el => el._id !== _id);
+        this.props.deleteCartItem(newCart);
     }
     onIncr(_id, quantity) {
-        this.props.updateCart(_id, 1);
+        this.props.updateCart(_id, 1, this.props.cart.cart);
     }
     onDecr(_id, quantity) {
         if (quantity > 0) {
-            this.props.updateCart(_id, -1);
+            this.props.updateCart(_id, -1, this.props.cart.cart);
         }
     }
     open() {
@@ -111,6 +115,6 @@ const mapStateToProps = state => ({
     cart: state.cart
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ deleteCartItem, updateCart }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ deleteCartItem, updateCart, getCart }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
