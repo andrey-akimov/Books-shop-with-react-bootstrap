@@ -122,6 +122,23 @@ app.put('/books/:_id', (req, res) => {
     });
 });
 
+// GET BOOKS IMAGES
+app.get('/images', (req, res) => {
+    const imgFolder = __dirname + '/public/images';
+    const fs = require('fs');
+
+    fs.readdir(imgFolder, (err, files) => {
+        if (err) {
+            return console.error(err);
+        }
+        const filesArr = [];
+        files.forEach(file => {
+            filesArr.push({ name: file });
+        });
+        res.json(filesArr);
+    });
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });

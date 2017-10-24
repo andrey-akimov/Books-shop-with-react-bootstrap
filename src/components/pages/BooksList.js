@@ -19,11 +19,11 @@ class BooksList extends Component {
                     <Cart />
                 </Row>
                 <Row>
-                    <Col xs={12} sm={6}>
+                    <Col xs={12} sm={8}>
                         <BooksForm />
                     </Col>
                     {this.props.books.map(book => (
-                        <Col xs={12} sm={6} md={4} key={book._id}>
+                        <Col xs={12} sm={4} key={book._id}>
                             <BookItem {...book} />
                         </Col>
                     ))}

@@ -69,7 +69,6 @@ export function updateCart(_id, unit, cart) {
 
 // DELETE FROM CART
 export function deleteCartItem(cart) {
-    console.log('DELETE********', cart);
     return function(dispatch) {
         axios
             .post('/cart', cart)
