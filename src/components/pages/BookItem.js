@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Well, Button } from 'react-bootstrap';
+import { Row, Col, Well, Button, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addToCart, updateCart } from '../../actions/cartActions';
@@ -10,13 +10,14 @@ class BookItem extends Component {
         this.handleCart = this.handleCart.bind(this);
     }
     handleCart() {
-        let { _id, title, description, price, quantity } = this.props;
+        let { _id, title, description, images, price, quantity } = this.props;
         const book = [
             ...this.props.cart,
             {
                 _id,
                 title,
                 description,
+                images,
                 price,
                 quantity: 1
             }
@@ -37,7 +38,10 @@ class BookItem extends Component {
         return (
             <Well>
                 <Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={4}>
+                        <Image src={this.props.image} responsive />
+                    </Col>
+                    <Col xs={12} sm={8}>
                         <h3>{title}</h3>
                         <p>{description}</p>
                         <h6>usd. {price}</h6>
