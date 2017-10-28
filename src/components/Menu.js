@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, Badge } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { getCart } from '../actions/cartActions';
 
 class Menu extends Component {
+    componentDidMount() {
+        this.props.getCart();
+    }
     render() {
         return (
             <Navbar inverse>
@@ -43,4 +47,6 @@ const mapStateToProps = state => ({
     totalQuantity: state.cart.total.totalQuantity
 });
 
-export default connect(mapStateToProps)(Menu);
+const mapDispatchToProps = dispatch => bindActionCreators({ getCart }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

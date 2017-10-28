@@ -7,7 +7,14 @@ import { addToCart, updateCart } from '../../actions/cartActions';
 class BookItem extends Component {
     constructor() {
         super();
+        this.onReadMore = this.onReadMore.bind(this);
         this.handleCart = this.handleCart.bind(this);
+        this.state = {
+            isClicked: false
+        };
+    }
+    onReadMore() {
+        this.setState({ isClicked: true });
     }
     handleCart() {
         let { _id, title, description, images, price, quantity } = this.props;
@@ -35,6 +42,7 @@ class BookItem extends Component {
     }
     render() {
         let { title, description, price } = this.props;
+        let { isClicked } = this.state;
         return (
             <Well>
                 <Row>
@@ -43,7 +51,14 @@ class BookItem extends Component {
                     </Col>
                     <Col xs={12} sm={8}>
                         <h3>{title}</h3>
-                        <p>{description}</p>
+                        <p>
+                            {description.length > 50 && isClicked === false ? description.slice(0, 50) : description}
+                            <Button className="link" onClick={this.onReadMore}>
+                                {isClicked === false && description !== null && description.length > 50
+                                    ? '...read more'
+                                    : ''}
+                            </Button>
+                        </p>
                         <h6>usd. {price}</h6>
                         <Button onClick={this.handleCart} bsStyle="primary">
                             Buy now

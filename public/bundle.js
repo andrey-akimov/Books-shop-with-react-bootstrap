@@ -49177,11 +49177,20 @@ var BookItem = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (BookItem.__proto__ || Object.getPrototypeOf(BookItem)).call(this));
 
+        _this.onReadMore = _this.onReadMore.bind(_this);
         _this.handleCart = _this.handleCart.bind(_this);
+        _this.state = {
+            isClicked: false
+        };
         return _this;
     }
 
     _createClass(BookItem, [{
+        key: 'onReadMore',
+        value: function onReadMore() {
+            this.setState({ isClicked: true });
+        }
+    }, {
         key: 'handleCart',
         value: function handleCart() {
             var _props = this.props,
@@ -49220,6 +49229,7 @@ var BookItem = function (_Component) {
                 title = _props2.title,
                 description = _props2.description,
                 price = _props2.price;
+            var isClicked = this.state.isClicked;
 
             return _react2.default.createElement(
                 _reactBootstrap.Well,
@@ -49243,7 +49253,12 @@ var BookItem = function (_Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            description
+                            description.length > 50 && isClicked === false ? description.slice(0, 50) : description,
+                            _react2.default.createElement(
+                                _reactBootstrap.Button,
+                                { className: 'link', onClick: this.onReadMore },
+                                isClicked === false && description !== null && description.length > 50 ? '...read more' : ''
+                            )
                         ),
                         _react2.default.createElement(
                             'h6',
@@ -49298,6 +49313,8 @@ var _reactBootstrap = __webpack_require__(40);
 
 var _reactRedux = __webpack_require__(29);
 
+var _redux = __webpack_require__(25);
+
 var _cartActions = __webpack_require__(52);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -49318,6 +49335,11 @@ var Menu = function (_Component) {
     }
 
     _createClass(Menu, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.getCart();
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -49387,7 +49409,11 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Menu);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({ getCart: _cartActions.getCart }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Menu);
 
 /***/ }),
 /* 407 */
