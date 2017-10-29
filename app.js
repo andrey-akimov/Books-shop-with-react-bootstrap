@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // APIs
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/bookshop', { useMongoClient: true });
+mongoose.connect('mongodb://admin:admin@ds241055.mlab.com:41055/books_shop', { useMongoClient: true });
 
 const Books = require('./models/books');
 const db = mongoose.connection;

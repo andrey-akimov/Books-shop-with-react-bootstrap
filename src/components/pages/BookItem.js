@@ -45,7 +45,7 @@ class BookItem extends Component {
         let { isClicked } = this.state;
         return (
             <Well>
-                <Row>
+                <Row style={{ height: '400px' }}>
                     <Col xs={12} sm={4}>
                         <Image src={this.props.image} responsive />
                     </Col>
