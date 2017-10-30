@@ -2,7 +2,9 @@
 
 Simple book shop with admin page and sessions
 
+
 **Front-end:** React-Bootstrap + Redux-thunk + Router
+
 **Back-end:** MongoDB + Mongoose + Express
 
 
