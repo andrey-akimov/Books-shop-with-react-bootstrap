@@ -11730,8 +11730,12 @@ var BooksForm = function (_Component) {
                 image: (0, _reactDom.findDOMNode)(this.refs.image).value,
                 price: (0, _reactDom.findDOMNode)(this.refs.price).value
             };
-            this.props.postBooks(book);
-            this.resetForm();
+            if (book.title.length > 3 && book.description.length > 10 && book.price > 0) {
+                this.props.postBooks(book);
+                this.resetForm();
+            } else {
+                alert('Please fill correct all fields');
+            }
         }
     }, {
         key: 'handleSelect',
